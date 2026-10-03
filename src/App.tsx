@@ -22,8 +22,8 @@ export default function App() {
           <Toaster position="bottom-right" />
           <Switch>
             <Route path="/" component={Projects} />
-            <Route path="/demo1" component={ClinicDemo} />
-            <Route path="/demo1/" component={ClinicDemo} />
+            <Route path="/bookable-clinic" component={ClinicDemo} />
+            <Route path="/bookable-clinic/" component={ClinicDemo} />
             <Route component={NotFound} />
           </Switch>
         </TooltipProvider>
