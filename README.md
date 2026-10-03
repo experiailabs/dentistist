@@ -27,3 +27,7 @@ Or, with Vercel CLI installed and authenticated:
 cd bookable-clinic
 vercel --prod
 ```
+
+## Project collection
+
+The homepage (`/`) displays the project gallery. Bookable Clinic is the first demo at `/demo1`. Two coming-soon cards reserve space for future projects. Add entries to `src/pages/Projects.tsx` and matching routes in `src/App.tsx` when new demos are ready.
