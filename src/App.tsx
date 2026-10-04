@@ -5,13 +5,14 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { useEffect } from "react";
 import { Link, Route, Switch } from "wouter";
 import { ArrowLeft } from "lucide-react";
-import Home from "./pages/Home";
+import { projects, type Project } from "./projects";
 import Projects from "./pages/Projects";
 import NotFound from "./pages/NotFound";
 
-function ClinicDemo() {
-  useEffect(() => { document.title = "Demo1 · Bookable Clinic"; }, []);
-  return <><Home /><Link href="/" className="demo-back-link"><ArrowLeft size={14} /> All projects</Link></>;
+function ProjectDemo({ project }: { project: Project }) {
+  useEffect(() => { document.title = `${project.title} · Experiai`; }, [project.title]);
+  const Component = project.component;
+  return <><Component /><Link href="/" className="demo-back-link"><ArrowLeft size={14} /> All projects</Link></>;
 }
 
 export default function App() {
@@ -22,8 +23,9 @@ export default function App() {
           <Toaster position="bottom-right" />
           <Switch>
             <Route path="/" component={Projects} />
-            <Route path="/bookable-clinic" component={ClinicDemo} />
-            <Route path="/bookable-clinic/" component={ClinicDemo} />
+            {projects.flatMap((project) => [project.href, `${project.href}/`].map((path) => (
+              <Route key={path} path={path}><ProjectDemo project={project} /></Route>
+            )))}
             <Route component={NotFound} />
           </Switch>
         </TooltipProvider>

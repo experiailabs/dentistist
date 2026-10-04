@@ -30,4 +30,4 @@ vercel --prod
 
 ## Project collection
 
-The homepage (`/`) displays the project gallery. Bookable Clinic is the first demo at `/demo1`. Two coming-soon cards reserve space for future projects. Add entries to `src/pages/Projects.tsx` and matching routes in `src/App.tsx` when new demos are ready.
+The homepage (`/`) displays the project gallery. Bookable Clinic is the first demo at `/bookable-clinic`. Two coming-soon cards reserve space for future projects. Bookable Clinic lives in `src/projects/bookable-clinic`. Add future project components under `src/projects` and register them in `src/projects/index.ts`; the homepage and routes both use this shared list.
