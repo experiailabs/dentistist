@@ -120,6 +120,7 @@ const recoveryQueueByDay: Record<number, number[]> = { 0: [1], 1: [2], 2: [3], 3
 
 const localeCopy = {
   en: { locale: "English", greeting: "Good morning, Anara", intro: "Here’s what needs your attention today.", scan: "Run recovery scan", commandPlaceholder: "Try: Find patients for the 2 PM cancellation", noShows: "Bring them back", viewProfile: "View profile", draft: "AI reminder draft" },
+  hi: { locale: "हिंदी", greeting: "सुप्रभात, अनारा", intro: "आज इन बातों पर आपका ध्यान चाहिए।", scan: "रिकवरी स्कैन चलाएँ", commandPlaceholder: "आज़माएँ: दोपहर 2 बजे के रद्द हुए अपॉइंटमेंट के लिए मरीज खोजें", noShows: "मरीजों को वापस बुलाएँ", viewProfile: "प्रोफ़ाइल देखें", draft: "AI रिमाइंडर का मसौदा" },
   ar: { locale: "العربية", greeting: "صباح الخير، أنارا", intro: "إليك ما يحتاج إلى انتباهك اليوم.", scan: "تشغيل فحص الاستعادة", commandPlaceholder: "جرّب: ابحث عن مرضى لإلغاء موعد الساعة 2", noShows: "أعيدوهم إلى المسار", viewProfile: "عرض الملف", draft: "مسودة تذكير بالذكاء الاصطناعي" },
   ru: { locale: "Русский", greeting: "Доброе утро, Анара", intro: "Вот что требует вашего внимания сегодня.", scan: "Запустить поиск", commandPlaceholder: "Например: Найти пациентов на отмену в 14:00", noShows: "Вернуть пациентов", viewProfile: "Открыть профиль", draft: "Черновик напоминания от ИИ" },
 } as const;
@@ -261,8 +262,8 @@ export default function Home() {
     if (!trimmed) return;
     setActiveNav("Waitlist");
     setSearch("");
-    setCommandStatus(language === "ar" ? "تم العثور على 3 مرضى مناسبين" : language === "ru" ? "Найдено 3 подходящих пациента" : "3 high-fit patients found");
-    toast.success(language === "ar" ? "تم تشغيل المطابقة الذكية" : language === "ru" ? "Умный поиск запущен" : "AI matching triggered", { description: trimmed });
+    setCommandStatus(language === "hi" ? "3 उपयुक्त मरीज मिले" : language === "ar" ? "تم العثور على 3 مرضى مناسبين" : language === "ru" ? "Найдено 3 подходящих пациента" : "3 high-fit patients found");
+    toast.success(language === "hi" ? "AI मिलान शुरू हुआ" : language === "ar" ? "تم تشغيل المطابقة الذكية" : language === "ru" ? "Умный поиск запущен" : "AI matching triggered", { description: trimmed });
   };
 
   const openProfile = (patient: (typeof noShows)[number]) => {
@@ -284,7 +285,7 @@ export default function Home() {
   const currentDeliveryTimes = selectedNoShow ? deliveryTimes[selectedNoShow.name] ?? {} : {};
 
   return (
-    <div className="app-shell" dir={language === "ar" ? "rtl" : "ltr"}>
+    <div className="app-shell" lang={language} dir={language === "ar" ? "rtl" : "ltr"}>
       <div className="demo-banner" role="status">Frontend demo · Sample data · Messages and AI actions are simulated</div>
       <aside className={`sidebar ${mobileNav ? "sidebar-open" : ""}`}>
         <div className="brand-lockup">
@@ -342,7 +343,7 @@ export default function Home() {
           <button className="mobile-menu" onClick={() => setMobileNav(true)} aria-label="Open navigation"><Menu size={19} /></button>
           <div className="topbar-context"><span className="status-pulse" /><span>Tuesday, 14 October 2025</span><span className="topbar-separator">/</span><span className="topbar-muted">Live clinic view</span></div>
           <div className="topbar-actions">
-            <div className="locale-toggle" role="group" aria-label="Language selector"><Globe2 size={14} />{(Object.keys(localeCopy) as Array<keyof typeof localeCopy>).map((key) => <button key={key} className={language === key ? "locale-active" : ""} aria-pressed={language === key} onClick={() => { setLanguage(key); setCommandStatus(""); }}>{key === "en" ? "EN" : key === "ar" ? "ع" : "RU"}</button>)}</div>
+            <div className="locale-toggle" role="group" aria-label="Language selector"><Globe2 size={14} />{(Object.keys(localeCopy) as Array<keyof typeof localeCopy>).map((key) => <button key={key} className={language === key ? "locale-active" : ""} aria-pressed={language === key} onClick={() => { setLanguage(key); setCommandStatus(""); }}>{key === "en" ? "EN" : key === "ar" ? "ع" : key === "hi" ? "हिं" : "RU"}</button>)}</div>
             <button className="icon-button" onClick={() => toast.info("You’re all caught up.")} aria-label="Notifications"><Bell size={18} /><span className="notification-dot" /></button>
             <div className="topbar-divider" />
             <div className="topbar-user"><div className="topbar-avatar">AR</div><span>Anara</span><ChevronDown size={14} className="text-slate" /></div>
